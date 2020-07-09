@@ -1,0 +1,19 @@
+$snow-black: #404040;
+$bg-color: #fdfdfd;
+
+body {
+  background-color: $bg-color;
+  font-size: 32px;
+}
+
+body > .page {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+
+  section {
+    border: 1px solid $snow-black;
+    height: 50vh;
+    width: 50vw;
+  }
+}

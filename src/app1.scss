@@ -1,0 +1,15 @@
+$whitesmoke: #f5f5f5;
+$gold: #ffd700;
+$orange: #ff4500;
+
+.app1 {
+  background-color: $whitesmoke;
+
+  .output {
+    font-size: 20px;
+  }
+
+  .actions {
+    font-size: 20px;
+  }
+}

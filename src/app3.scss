@@ -1,0 +1,22 @@
+$dirty-snow: #f4f4f4;
+$shit-yellow: rgb(253, 231, 85);
+$orange: #ff4500;
+
+.app3 {
+
+  .square {
+    background-color: $shit-yellow;
+    border: 1px solid $orange;
+    height: 10vw;
+    margin-left: 10vw;
+    margin-top: 10vw;
+    transition: all 1s;
+    width: 10vw;
+
+    &.active {
+      background-color: mix($shit-yellow, $orange, $weight: .5);
+      border: 1px solid $dirty-snow;
+      transform: translateX(15vw);
+    }
+  }
+}

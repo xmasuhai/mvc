@@ -1,0 +1,1 @@
+.app2{height:50vh;width:50vw}.app2 .tab-bar{display:flex}.app2 .tab-bar li{border:1px solid #8a2be2;width:50%}.app2 .tab-bar li.selected{background-color:#fde755;color:#f4f4f4}.app2 .tab-content li{display:none}.app2 .tab-content li.active{display:block}.app2 .tab-content li.visibilty{visibility:visible}

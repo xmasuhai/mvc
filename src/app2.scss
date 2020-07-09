@@ -1,0 +1,37 @@
+$temp-color: #8a2be2;
+$shit-yellow: rgb(253, 231, 85);
+$dirty-snow: #f4f4f4;
+
+.app2 {
+
+  height: 50vh;
+  width: 50vw;
+
+  .tab-bar {
+    display: flex;
+
+    li {
+      border: 1px solid $temp-color;
+      width: 50%;
+
+      &.selected {
+        background-color: $shit-yellow;
+        color: $dirty-snow;
+      }
+    }
+  }
+
+  .tab-content {
+    li {
+      display: none;
+
+      &.active {
+        display: block;
+      }
+
+      &.visibilty {
+        visibility: visible;
+      }
+    }
+  }
+}
