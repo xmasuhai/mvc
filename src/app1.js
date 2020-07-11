@@ -6,6 +6,7 @@ const $button2 = $('#minus1')
 const $button3 = $('#mul2')
 const $button4 = $('#divide2')
 const $number = $('#number')
+const $recovery = $('#recovery')
 
 const n = localStorage.getItem('n');
 $number.text(n || 100)
@@ -16,7 +17,6 @@ $button1.on('click', () => {
   localStorage.setItem('n', n)
   $number.text(n)
 })
-
 $button2.on('click', () => {
   let n = parseInt($number.text())
   n -= 1
@@ -34,4 +34,8 @@ $button4.on('click', () => {
   n /= 2
   localStorage.setItem('n', n)
   $number.text(n)
+})
+$recovery.on('click', () => {
+  $number.text(100)
+  localStorage.setItem('n', n)
 })

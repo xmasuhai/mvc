@@ -1,5 +1,5 @@
 
-# yarn build 一键发布
+# yarn init -y && parcel build src/index.html 一键发布
 
 > 再次build的时，只需用`yarn init -y` 创建`package.json`
 
@@ -11,4 +11,4 @@
 },
 ```
 
-再次 `yarn build`
+再次 `parcel build src/index.html`

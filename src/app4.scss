@@ -19,26 +19,12 @@ $anim-direction: normal;
 
 @mixin blue {
   background-color: $fg-color;
-  border: 1px solid $fg-color;
   height: 1em;
   width: 1em;
 }
 
 // ----- Style ----- //
-
 #app4 {
-  @keyframes change {
-    0% {
-      background-color: $shit-yellow;
-      transform: scale(.5);
-    }
-
-    100% {
-      background-color: $fg-color;
-      transform: scale(.8);
-    }
-  }
-
   &.app4 {
     align-items: center;
     display: grid;
@@ -49,8 +35,9 @@ $anim-direction: normal;
   .circle {
     border: 1px solid $fg-color;
     border-radius: 50%;
-    height: 30vw;
-    width: 30vw;
+    height: 20vw;
+    position: relative;
+    width: 20vw;
 
     &.active {
       animation: change 1s infinite both linear;
@@ -58,96 +45,23 @@ $anim-direction: normal;
 
     .heart {
       @include animation(heart);
-      content: '';
       left: 50%;
       position: absolute;
       top: 50%;
     }
 
-    .heart-L {
-      @include animation(heart-L);
-      @include blue;
-      border-radius: 100%;
-      content: '';
-      display: block;
-      position: absolute;
-      transform: translate(-9px, -8px);
-    }
-
-    .heart-R {
-      @include animation(heart-R);
-      @include blue;
-      border-radius: 100%;
-      content: '';
-      display: block;
-      position: absolute;
-      transform: translate(9px, -8px);
-    }
-
-    .square {
-      @include animation(square);
-      @include blue;
-      content: '';
-      display: block;
-      position: relative;
-      transform: scale(1) rotate(-45deg);
-    }
-
-    shadow {
-      @include animation(shadow);
-      background-color: darken($bg-color, 15%);
-      border: 1px solid darken($bg-color, 15%);
-      border-radius: 50%;
-      bottom: -.5em;
-      content: '';
-      display: block;
-      height: .25em;
-      left: 50%;
-      position: relative;
-      top: 100px;
-      width: 1em;
-    }
   }
 }
 
 // ----- Animations ----- //
-
-@keyframes square {
-  50% {
-    border-radius: 100%;
-    transform: scale(.5) rotate(-45deg);
-  }
-
-  100% {
-    transform: scale(1) rotate(-45deg);
-  }
-}
-
-@keyframes heart {
-  50% {
-    transform: rotate(360deg);
-  }
-
-  100% {
-    transform: rotate(720deg);
-  }
-}
-
-@keyframes heart-L {
-  60% {
-    transform: scale(.4);
-  }
-}
-
-@keyframes heart-R {
-  40% {
-    transform: scale(.4);
-  }
-}
-
-@keyframes shadow {
-  50% {
-    border-color: darken($bg-color, 10%);
+@keyframes change {
+  0% {
+    background-color: $shit-yellow;
     transform: scale(.5);
+  }
+
+  100% {
+    background-color: $fg-color;
+    transform: scale(.8);
   }
 }

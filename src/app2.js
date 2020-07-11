@@ -4,12 +4,22 @@ import './app2.css'
 const $tabBar = $('#app2 .tab-bar')
 const $tabContent = $('#app2 .tab-content')
 
+//read localStorage tab status
+const localKey = 'app2.index'
+// 保底值
+// let index = localStorage.getItem(localKey) || 0
+let index = localStorage.getItem(localKey) ?? 0
+
+// 事件委托
 $tabBar.on('click', 'li', (e) => {
   // console.log(e.target) // 点击时可能获取到目标元素的子元素 改成用 e.currentTarget
   // console.log(e.currentTarget) // DOM 元素难用 换成用jQuery元素 封装$li
   const $li = $(e.currentTarget)
   const index = $li.index()
   // console.log(index)
+
+  //write localStorage tab status
+  localStorage.setItem(localKey, index)
 
   /*
     // 逻辑与样式耦合的代码1
@@ -41,5 +51,6 @@ $tabBar.on('click', 'li', (e) => {
 })
 
 // 帮你点击 代替在HTML标签中设置样式属性 'selected' 'active'
-$tabBar.children().eq(0).trigger('click')
+// $tabBar.children().eq(0).trigger('click')
+$tabBar.children().eq(index).trigger('click')
 
