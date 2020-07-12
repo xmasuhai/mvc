@@ -11214,6 +11214,10 @@ require("./app1.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var style = "\nbody {\n  color: red;\n}\n";
+var html = "\n  <section id=\"app1\" class=\"app1\">\n    <div class=\"output\">\n      <span id=\"number\">100</span>\n    </div>\n    <div class=\"actions\">\n      <button id=\"add1\">+1</button>\n      <button id=\"minus1\">-1</button>\n      <button id=\"mul2\">\xD72</button>\n      <button id=\"divide2\">\xF72</button>\n      <button id=\"recovery\">\u6062\u590D</button>\n    </div>\n  </section>\n"; // 用jQuery方法见字符串变为HTML标签
+
+var element = (0, _jquery.default)(html).prependTo((0, _jquery.default)('body>.page'));
 var $button1 = (0, _jquery.default)('#add1');
 var $button2 = (0, _jquery.default)('#minus1');
 var $button3 = (0, _jquery.default)('#mul2');
@@ -11264,6 +11268,8 @@ var _localStorage$getItem;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var html = "\n  <section id=\"app2\" class=\"app2\">\n    <ol class=\"tab-bar\">\n      <li><span>111111</span></li>\n      <li><span>222222</span></li>\n    </ol>\n    <ol class=\"tab-content\">\n      <li>\u5185\u5BB91</li>\n      <li>\u5185\u5BB92</li>\n    </ol>\n  </section>\n";
+var $element = (0, _jquery.default)(html).appendTo((0, _jquery.default)('body>.page'));
 var $tabBar = (0, _jquery.default)('#app2 .tab-bar');
 var $tabContent = (0, _jquery.default)('#app2 .tab-content'); //read localStorage tab status
 
@@ -11310,7 +11316,8 @@ require("./app3.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var html = "\n  <section id=\"app1\" class=\"app1\">\n    <div class=\"output\">\n      <span id=\"number\">100</span>\n    </div>\n    <div class=\"actions\">\n      <button id=\"add1\">+1</button>\n      <button id=\"minus1\">-1</button>\n      <button id=\"mul2\">\xD72</button>\n      <button id=\"divide2\">\xF72</button>\n      <button id=\"recovery\">\u6062\u590D</button>\n    </div>\n  </section>\n";
+var html = "\n  <section id=\"app3\" class=\"app3\">\n    <div class=\"square\"></div>\n  </section>\n";
+var $element = (0, _jquery.default)(html).appendTo((0, _jquery.default)('body>.page'));
 var $square = (0, _jquery.default)('#app3 .square');
 var localKey = 'app3.active'; // 布尔值 判断是否点击了  no undefined / yes
 
@@ -11345,6 +11352,8 @@ require("./app4.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var html = "\n  <section id=\"app4\" class=\"app4\">\n    <div class=\"circle\"></div>\n  </section>\n";
+var $element = (0, _jquery.default)(html).appendTo((0, _jquery.default)('body>.page'));
 var $circle = (0, _jquery.default)('#app4 .circle');
 $circle.on('mouseenter', function () {
   $circle.addClass('active');
@@ -11366,4 +11375,4 @@ require("./app3.js");
 
 require("./app4.js");
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.15858e4f.js.map
+//# sourceMappingURL=main.9c8641c0.js.map

@@ -2,20 +2,11 @@ import $ from 'jquery'
 import './app3.css'
 
 const html = `
-  <section id="app1" class="app1">
-    <div class="output">
-      <span id="number">100</span>
-    </div>
-    <div class="actions">
-      <button id="add1">+1</button>
-      <button id="minus1">-1</button>
-      <button id="mul2">×2</button>
-      <button id="divide2">÷2</button>
-      <button id="recovery">恢复</button>
-    </div>
+  <section id="app3" class="app3">
+    <div class="square"></div>
   </section>
 `
-
+const $element = $(html).appendTo($('body>.page'))
 const $square = $('#app3 .square')
 const localKey = 'app3.active'
 
