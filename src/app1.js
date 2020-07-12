@@ -8,34 +8,37 @@ const $button4 = $('#divide2')
 const $number = $('#number')
 const $recovery = $('#recovery')
 
-const n = localStorage.getItem('n');
-$number.text(n || 100)
+let n = localStorage.getItem('n');
+// $number.text(n || 100)
+$number.text(n ?? 100)
 
 $button1.on('click', () => {
   let n = parseInt($number.text())
   n += 1
-  localStorage.setItem('n', n)
+  localStorage.setItem('n', n.toString())
   $number.text(n)
 })
 $button2.on('click', () => {
   let n = parseInt($number.text())
   n -= 1
-  localStorage.setItem('n', n)
+  localStorage.setItem('n', n.toString())
   $number.text(n)
 })
 $button3.on('click', () => {
   let n = parseInt($number.text())
   n *= 2
-  localStorage.setItem('n', n)
+  localStorage.setItem('n', n.toString())
   $number.text(n)
 })
 $button4.on('click', () => {
   let n = parseInt($number.text())
   n /= 2
-  localStorage.setItem('n', n)
+  localStorage.setItem('n', n.toString())
   $number.text(n)
 })
 $recovery.on('click', () => {
-  $number.text(100)
-  localStorage.setItem('n', n)
+  $number.text('100')
+  let n = parseInt($number.text())
+  n = 100
+  localStorage.setItem('n', n.toString())
 })
