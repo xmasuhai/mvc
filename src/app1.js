@@ -1,12 +1,7 @@
 import $ from 'jquery'
 import './app1.css'
 
-const style = `
-body {
-  color: red;
-}
-`
-
+// 初始化html
 const html = `
   <section id="app1" class="app1">
     <div class="output">
@@ -24,18 +19,18 @@ const html = `
 // 用jQuery方法见字符串变为HTML标签
 const element = $(html)
   .prependTo($('body>.page'))
-
+//需要的元素
 const $button1 = $('#add1')
 const $button2 = $('#minus1')
 const $button3 = $('#mul2')
 const $button4 = $('#divide2')
 const $number = $('#number')
 const $recovery = $('#recovery')
-
+// 初始化数据
 let n = localStorage.getItem('n');
-// $number.text(n || 100)
-$number.text(n ?? 100)
-
+// 将数据渲染到页面
+$number.text(n ?? 100) // $number.text(n || 100)
+// 绑定鼠标事件
 $button1.on('click', () => {
   let n = parseInt($number.text())
   n += 1
