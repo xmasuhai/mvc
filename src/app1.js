@@ -1,5 +1,8 @@
 import $ from 'jquery'
 import './app1.css'
+
+const eventBus = $({})
+// console.log(eventBus)
 /* 数据相关放到 m */
 const m = {
   // 初始化数据
@@ -41,11 +44,11 @@ const v = {
   init(container) {
     // 用jQuery封装对象 container <- #app1
     v.el = $(container)
-    v.render()
+    // v.render() // 在控制器初始化中调用v.render(n)
   },
   // render(container) 省去参数 里面的替换为 $(v.el)
   // 负责渲染页面
-  render() {
+  render(n) {
     // 用jQuery方法见字符串变为HTML标签
     /* console.log('v.html: ')
     console.log(v.html)
@@ -64,11 +67,11 @@ const v = {
       v.el = newEl
     }
     */
-    // `v.el.children.length === 0` 代替看 `v.el === null`判断视图元素是否为空
+    // `v.el.children.length === 0` 代替 `v.el === null`判断视图元素是否为空
     if (v.el.children.length !== 0) {
       v.el.empty()
     }
-    $(v.html.replace('{{number}}', m.data.n))
+    $(v.html.replace('{{number}}', n))
       .prependTo(v.el)
   }
 }
@@ -81,8 +84,9 @@ console.log($('#add1')) // null
 const c = {
   init(container) {
     // 初始化渲染html
-    // v.render(container)
     v.init(container)
+    v.render(m.data.n) // 1st view = render(data)
+    /*
     c.ui = {
         // 需要的元素
         button1: $('#add1'),
@@ -92,8 +96,56 @@ const c = {
         number: $('#number'),
         recovery: $('#recovery')
     }
-    c.bindEvents()
+    */
+    // c.bindEvents()
+    c.autoBindEvents()
   },
+  events: {
+    'click #add1': 'add',
+    'click #minus1': 'minus',
+    'click #mul2': 'mul',
+    'click #divide2': 'div',
+    'click #recovery': 'recover',
+  },
+  add() {
+    m.data.n += 1
+    v.render(m.data.n)
+  },
+  minus() {
+    m.data.n -= 1
+    v.render(m.data.n)
+  },
+  mul() {
+    m.data.n *= 2
+    v.render(m.data.n)
+  },
+  div() {
+    m.data.n /= 2
+    v.render(m.data.n)
+  },
+  recover() {
+    m.data.n = 100
+    v.render(m.data.n)
+  },
+  autoBindEvents() {
+    for(let key in c.events) {
+      // console.log(key)
+      // app1.js:124 click #add1
+      // app1.js:124 click #minus
+      // app1.js:124 click #mul2
+      // app1.js:124 click #divide2
+      // app1.js:124 click #recovery
+      const spaceIndex = key.indexOf(' ')
+      const part1 = key.slice(0, spaceIndex)
+      const part2 = key.slice(spaceIndex + 1)
+      // console.log(part1, ',', part2)
+      const valueMethod = c[c.events[key]]
+      console.log(part1, part2, valueMethod)
+      v.el.on(part1, part2, valueMethod)
+    }
+  },
+  /*
+  ,
   bindEvents() {
     //事件委托
     v.el.on('click', '#add1', () => {
@@ -101,22 +153,22 @@ const c = {
       // console.log('run here')
       m.data.n += 1
       // console.log(m.data.n)
-      v.render()
+      v.render(m.data.n) // 2nd view = render(data)
       localStorage.setItem('n', m.data.n.toString())
     })
     v.el.on('click', '#minus1',() => {
       m.data.n -= 1
-      v.render()
+      v.render(m.data.n)
       localStorage.setItem('n', m.data.n.toString())
     })
     v.el.on('click', '#mul2',() => {
       m.data.n *= 2
-      v.render()
+      v.render(m.data.n)
       localStorage.setItem('n', m.data.n.toString())
     })
     v.el.on('click', '#divide2',() => {
       m.data.n /= 2
-      v.render()
+      v.render(m.data.n)
       localStorage.setItem('n', m.data.n.toString())
     })
     v.el.on('click', '#recovery',() => {
@@ -125,6 +177,7 @@ const c = {
       localStorage.setItem('n', m.data.n.toString())
     })
   }
+  */
 }
 
 // c.init()

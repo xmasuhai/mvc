@@ -11221,7 +11221,10 @@ var _parseInt;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var eventBus = (0, _jquery.default)({}); // console.log(eventBus)
+
 /* 数据相关放到 m */
+
 var m = {
   // 初始化数据
   data: {
@@ -11251,12 +11254,11 @@ var v = {
   // 接受外部参数（传入容器）视图初始化
   init: function init(container) {
     // 用jQuery封装对象 container <- #app1
-    v.el = (0, _jquery.default)(container);
-    v.render();
+    v.el = (0, _jquery.default)(container); // v.render() // 在控制器初始化中调用v.render(n)
   },
   // render(container) 省去参数 里面的替换为 $(v.el)
   // 负责渲染页面
-  render: function render() {
+  render: function render(n) {
     // 用jQuery方法见字符串变为HTML标签
 
     /* console.log('v.html: ')
@@ -11277,12 +11279,12 @@ var v = {
       v.el = newEl
     }
     */
-    // `v.el.children.length === 0` 代替看 `v.el === null`判断视图元素是否为空
+    // `v.el.children.length === 0` 代替 `v.el === null`判断视图元素是否为空
     if (v.el.children.length !== 0) {
       v.el.empty();
     }
 
-    (0, _jquery.default)(v.html.replace('{{number}}', m.data.n)).prependTo(v.el);
+    (0, _jquery.default)(v.html.replace('{{number}}', n)).prependTo(v.el);
   }
 };
 /* 其他相关放到 c */
@@ -11296,50 +11298,103 @@ console.log($('#add1')) // null
 var c = {
   init: function init(container) {
     // 初始化渲染html
-    // v.render(container)
     v.init(container);
+    v.render(m.data.n); // 1st view = render(data)
+
+    /*
     c.ui = {
-      // 需要的元素
-      button1: (0, _jquery.default)('#add1'),
-      button2: (0, _jquery.default)('#minus1'),
-      button3: (0, _jquery.default)('#mul2'),
-      button4: (0, _jquery.default)('#divide2'),
-      number: (0, _jquery.default)('#number'),
-      recovery: (0, _jquery.default)('#recovery')
-    };
-    c.bindEvents();
+        // 需要的元素
+        button1: $('#add1'),
+        button2: $('#minus1'),
+        button3: $('#mul2'),
+        button4: $('#divide2'),
+        number: $('#number'),
+        recovery: $('#recovery')
+    }
+    */
+    // c.bindEvents()
+
+    c.autoBindEvents();
   },
-  bindEvents: function bindEvents() {
+  events: {
+    'click #add1': 'add',
+    'click #minus1': 'minus',
+    'click #mul2': 'mul',
+    'click #divide2': 'div',
+    'click #recovery': 'recover'
+  },
+  add: function add() {
+    m.data.n += 1;
+    v.render(m.data.n);
+  },
+  minus: function minus() {
+    m.data.n -= 1;
+    v.render(m.data.n);
+  },
+  mul: function mul() {
+    m.data.n *= 2;
+    v.render(m.data.n);
+  },
+  div: function div() {
+    m.data.n /= 2;
+    v.render(m.data.n);
+  },
+  recover: function recover() {
+    m.data.n = 100;
+    v.render(m.data.n);
+  },
+  autoBindEvents: function autoBindEvents() {
+    for (var key in c.events) {
+      // console.log(key)
+      // app1.js:124 click #add1
+      // app1.js:124 click #minus
+      // app1.js:124 click #mul2
+      // app1.js:124 click #divide2
+      // app1.js:124 click #recovery
+      var spaceIndex = key.indexOf(' ');
+      var part1 = key.slice(0, spaceIndex);
+      var part2 = key.slice(spaceIndex + 1); // console.log(part1, ',', part2)
+
+      var valueMethod = c[c.events[key]];
+      console.log(part1, part2, valueMethod);
+      v.el.on(part1, part2, valueMethod);
+    }
+  }
+  /*
+  ,
+  bindEvents() {
     //事件委托
-    v.el.on('click', '#add1', function () {
+    v.el.on('click', '#add1', () => {
       // 直接从`m.data`中获取数据 来操作
       // console.log('run here')
-      m.data.n += 1; // console.log(m.data.n)
-
-      v.render();
-      localStorage.setItem('n', m.data.n.toString());
-    });
-    v.el.on('click', '#minus1', function () {
-      m.data.n -= 1;
-      v.render();
-      localStorage.setItem('n', m.data.n.toString());
-    });
-    v.el.on('click', '#mul2', function () {
-      m.data.n *= 2;
-      v.render();
-      localStorage.setItem('n', m.data.n.toString());
-    });
-    v.el.on('click', '#divide2', function () {
-      m.data.n /= 2;
-      v.render();
-      localStorage.setItem('n', m.data.n.toString());
-    });
-    v.el.on('click', '#recovery', function () {
-      m.data.n = 100;
-      v.render();
-      localStorage.setItem('n', m.data.n.toString());
-    });
+      m.data.n += 1
+      // console.log(m.data.n)
+      v.render(m.data.n) // 2nd view = render(data)
+      localStorage.setItem('n', m.data.n.toString())
+    })
+    v.el.on('click', '#minus1',() => {
+      m.data.n -= 1
+      v.render(m.data.n)
+      localStorage.setItem('n', m.data.n.toString())
+    })
+    v.el.on('click', '#mul2',() => {
+      m.data.n *= 2
+      v.render(m.data.n)
+      localStorage.setItem('n', m.data.n.toString())
+    })
+    v.el.on('click', '#divide2',() => {
+      m.data.n /= 2
+      v.render(m.data.n)
+      localStorage.setItem('n', m.data.n.toString())
+    })
+    v.el.on('click', '#recovery',() => {
+      m.data.n = 100
+      v.render()
+      localStorage.setItem('n', m.data.n.toString())
+    })
   }
+  */
+
 }; // c.init()
 
 var _default = c;
@@ -11468,4 +11523,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _app.default.init('#app1');
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1":"US5u","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.c9c1408b.js.map
+//# sourceMappingURL=main.0be7e0ce.js.map
