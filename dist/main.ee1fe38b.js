@@ -117,84 +117,9 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"AQoi":[function(require,module,exports) {
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js"}],"reset.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"global.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"zkvw":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -403,7 +328,7 @@ process.chdir = function (dir) {
 process.umask = function () {
   return 0;
 };
-},{}],"../node_modules/jquery/dist/jquery.js":[function(require,module,exports) {
+},{}],"juYr":[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var define;
@@ -11280,13 +11205,13 @@ if ( typeof noGlobal === "undefined" ) {
 return jQuery;
 } );
 
-},{"process":"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/node_modules/process/browser.js"}],"app1.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"app1.js":[function(require,module,exports) {
+},{"process":"zkvw"}],"US5u":[function(require,module,exports) {
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
@@ -11294,59 +11219,130 @@ require("./app1.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// 初始化html
-var html = "\n  <section id=\"app1\" class=\"app1\">\n    <div class=\"output\">\n      <span id=\"number\">100</span>\n    </div>\n    <div class=\"actions\">\n      <button id=\"add1\">+1</button>\n      <button id=\"minus1\">-1</button>\n      <button id=\"mul2\">\xD72</button>\n      <button id=\"divide2\">\xF72</button>\n      <button id=\"recovery\">\u6062\u590D</button>\n    </div>\n  </section>\n"; // 用jQuery方法见字符串变为HTML标签
+/* 数据相关放到 m */
+var m = {
+  // 初始化数据
+  data: {
+    n: parseInt(localStorage.getItem('n'))
+  }
+};
+/* 视图相关放到 v */
 
-var element = (0, _jquery.default)(html).prependTo((0, _jquery.default)('body>.page')); //需要的元素
+var v = {
+  // 视图元素 容器元素
+  el: null,
 
-var $button1 = (0, _jquery.default)('#add1');
-var $button2 = (0, _jquery.default)('#minus1');
-var $button3 = (0, _jquery.default)('#mul2');
-var $button4 = (0, _jquery.default)('#divide2');
-var $number = (0, _jquery.default)('#number');
-var $recovery = (0, _jquery.default)('#recovery'); // 初始化数据
+  /*
+  // 放入的容器元素
+  container: null,
+  */
+  // 初始化html
+  html: "\n    <div>\n      <div class=\"output\">\n        <span id=\"number\">{{number}}</span>\n      </div>\n      <div class=\"actions\">\n        <button id=\"add1\">+1</button>\n        <button id=\"minus1\">-1</button>\n        <button id=\"mul2\">\xD72</button>\n        <button id=\"divide2\">\xF72</button>\n        <button id=\"recovery\">\u6062\u590D</button>\n      </div>\n    </div>\n  ",
 
-var n = localStorage.getItem('n'); // 将数据渲染到页面
+  /*
+  update() {
+    // 将数据渲染到页面
+    // c.ui.number.text(m.data.n ?? 100) // $number.text(m.data.n  || 100)
+    v.render()
+  },
+  */
+  // 接受外部参数（传入容器）视图初始化
+  init: function init(container) {
+    // 用jQuery封装对象 container <- #app1
+    v.el = (0, _jquery.default)(container);
+    v.render();
+  },
+  // render(container) 省去参数 里面的替换为 $(v.el)
+  // 负责渲染页面
+  render: function render() {
+    // 用jQuery方法见字符串变为HTML标签
 
-$number.text(n !== null && n !== void 0 ? n : 100); // $number.text(n || 100)
-// 绑定鼠标事件
+    /* console.log('v.html: ')
+    console.log(v.html)
+    console.log('m.data.n: ')
+    console.log(m.data.n) */
 
-$button1.on('click', function () {
-  var n = parseInt($number.text());
-  n += 1;
-  localStorage.setItem('n', n.toString());
-  $number.text(n);
-});
-$button2.on('click', function () {
-  var n = parseInt($number.text());
-  n -= 1;
-  localStorage.setItem('n', n.toString());
-  $number.text(n);
-});
-$button3.on('click', function () {
-  var n = parseInt($number.text());
-  n *= 2;
-  localStorage.setItem('n', n.toString());
-  $number.text(n);
-});
-$button4.on('click', function () {
-  var n = parseInt($number.text());
-  n /= 2;
-  localStorage.setItem('n', n.toString());
-  $number.text(n);
-});
-$recovery.on('click', function () {
-  $number.text('100');
-  var n = parseInt($number.text());
-  n = 100;
-  localStorage.setItem('n', n.toString());
-});
-},{"jquery":"../node_modules/jquery/dist/jquery.js","./app1.css":"app1.css"}],"app2.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
+    /*
+    if(v.el === null) {
+      // 没渲染过
+      v.el = $(v.html.replace('{{number}}', m.data.n))
+        .prependTo(v.el)
+    } else {
+      // 渲染过
+      const newEl = $(v.html.replace('{{number}}', m.data.n))
+      v.el.replaceWith(newEl)
+      // 更新地址 注意每次刷新都是不同的引用
+      v.el = newEl
+    }
+    */
+    // `v.el.children.length === 0` 代替看 `v.el === null`判断视图元素是否为空
+    if (v.el.children.length !== 0) {
+      v.el.empty();
+    }
 
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"app2.js":[function(require,module,exports) {
+    (0, _jquery.default)(v.html.replace('{{number}}', m.data.n)).prependTo(v.el);
+  }
+};
+/* 其他相关放到 c */
+
+/*
+console.log("$('#add1')")
+debugger
+console.log($('#add1')) // null
+*/
+
+var c = {
+  init: function init(container) {
+    // 初始化渲染html
+    // v.render(container)
+    v.init(container);
+    c.ui = {
+      // 需要的元素
+      button1: (0, _jquery.default)('#add1'),
+      button2: (0, _jquery.default)('#minus1'),
+      button3: (0, _jquery.default)('#mul2'),
+      button4: (0, _jquery.default)('#divide2'),
+      number: (0, _jquery.default)('#number'),
+      recovery: (0, _jquery.default)('#recovery')
+    };
+    c.bindEvents();
+  },
+  bindEvents: function bindEvents() {
+    //事件委托
+    v.el.on('click', '#add1', function () {
+      // 直接从`m.data`中获取数据 来操作
+      // console.log('run here')
+      m.data.n += 1; // console.log(m.data.n)
+
+      v.render();
+      localStorage.setItem('n', m.data.n.toString());
+    });
+    v.el.on('click', '#minus1', function () {
+      m.data.n -= 1;
+      v.render();
+      localStorage.setItem('n', m.data.n.toString());
+    });
+    v.el.on('click', '#mul2', function () {
+      m.data.n *= 2;
+      v.render();
+      localStorage.setItem('n', m.data.n.toString());
+    });
+    v.el.on('click', '#divide2', function () {
+      m.data.n /= 2;
+      v.render();
+      localStorage.setItem('n', m.data.n.toString());
+    });
+    v.el.on('click', '#recovery', function () {
+      m.data.n = 100;
+      v.render();
+      localStorage.setItem('n', m.data.n.toString());
+    });
+  }
+}; // c.init()
+
+var _default = c;
+exports.default = _default;
+},{"jquery":"juYr","./app1.css":"AQoi"}],"vZ5o":[function(require,module,exports) {
 "use strict";
 
 var _jquery = _interopRequireDefault(require("jquery"));
@@ -11396,12 +11392,7 @@ $tabBar.on('click', 'li', function (e) {
 // $tabBar.children().eq(0).trigger('click')
 
 $tabBar.children().eq(index).trigger('click');
-},{"jquery":"../node_modules/jquery/dist/jquery.js","./app2.css":"app2.css"}],"app3.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"app3.js":[function(require,module,exports) {
+},{"jquery":"juYr","./app2.css":"AQoi"}],"y8lT":[function(require,module,exports) {
 "use strict";
 
 var _jquery = _interopRequireDefault(require("jquery"));
@@ -11437,12 +11428,7 @@ $square.on('click', function () {
   } // $square.toggleClass('active')
 
 });
-},{"jquery":"../node_modules/jquery/dist/jquery.js","./app3.css":"app3.css"}],"app4.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"app4.js":[function(require,module,exports) {
+},{"jquery":"juYr","./app3.css":"AQoi"}],"eWpN":[function(require,module,exports) {
 "use strict";
 
 var _jquery = _interopRequireDefault(require("jquery"));
@@ -11459,12 +11445,14 @@ $circle.on('mouseenter', function () {
 }).on('mouseleave', function () {
   $circle.removeClass('active');
 });
-},{"jquery":"../node_modules/jquery/dist/jquery.js","./app4.css":"app4.css"}],"main.js":[function(require,module,exports) {
+},{"jquery":"juYr","./app4.css":"AQoi"}],"epB2":[function(require,module,exports) {
 "use strict";
 
 require("./reset.css");
 
 require("./global.css");
+
+var _app = _interopRequireDefault(require("./app1"));
 
 require("./app1.js");
 
@@ -11473,209 +11461,9 @@ require("./app2.js");
 require("./app3.js");
 
 require("./app4.js");
-},{"./reset.css":"reset.css","./global.css":"global.css","./app1.js":"app1.js","./app2.js":"app2.js","./app3.js":"app3.js","./app4.js":"app4.js"}],"C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
-var global = arguments[3];
-var OVERLAY_ID = '__parcel__error__overlay__';
-var OldModule = module.bundle.Module;
 
-function Module(moduleName) {
-  OldModule.call(this, moduleName);
-  this.hot = {
-    data: module.bundle.hotData,
-    _acceptCallbacks: [],
-    _disposeCallbacks: [],
-    accept: function (fn) {
-      this._acceptCallbacks.push(fn || function () {});
-    },
-    dispose: function (fn) {
-      this._disposeCallbacks.push(fn);
-    }
-  };
-  module.bundle.hotData = null;
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.bundle.Module = Module;
-var checkedAssets, assetsToAccept;
-var parent = module.bundle.parent;
-
-if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "" || location.hostname;
-  var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "13981" + '/');
-
-  ws.onmessage = function (event) {
-    checkedAssets = {};
-    assetsToAccept = [];
-    var data = JSON.parse(event.data);
-
-    if (data.type === 'update') {
-      var handled = false;
-      data.assets.forEach(function (asset) {
-        if (!asset.isNew) {
-          var didAccept = hmrAcceptCheck(global.parcelRequire, asset.id);
-
-          if (didAccept) {
-            handled = true;
-          }
-        }
-      }); // Enable HMR for CSS by default.
-
-      handled = handled || data.assets.every(function (asset) {
-        return asset.type === 'css' && asset.generated.js;
-      });
-
-      if (handled) {
-        console.clear();
-        data.assets.forEach(function (asset) {
-          hmrApply(global.parcelRequire, asset);
-        });
-        assetsToAccept.forEach(function (v) {
-          hmrAcceptRun(v[0], v[1]);
-        });
-      } else if (location.reload) {
-        // `location` global exists in a web worker context but lacks `.reload()` function.
-        location.reload();
-      }
-    }
-
-    if (data.type === 'reload') {
-      ws.close();
-
-      ws.onclose = function () {
-        location.reload();
-      };
-    }
-
-    if (data.type === 'error-resolved') {
-      console.log('[parcel] ✨ Error resolved');
-      removeErrorOverlay();
-    }
-
-    if (data.type === 'error') {
-      console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
-      removeErrorOverlay();
-      var overlay = createErrorOverlay(data);
-      document.body.appendChild(overlay);
-    }
-  };
-}
-
-function removeErrorOverlay() {
-  var overlay = document.getElementById(OVERLAY_ID);
-
-  if (overlay) {
-    overlay.remove();
-  }
-}
-
-function createErrorOverlay(data) {
-  var overlay = document.createElement('div');
-  overlay.id = OVERLAY_ID; // html encode message and stack trace
-
-  var message = document.createElement('div');
-  var stackTrace = document.createElement('pre');
-  message.innerText = data.error.message;
-  stackTrace.innerText = data.error.stack;
-  overlay.innerHTML = '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' + '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' + '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' + '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' + message.innerHTML + '</div>' + '<pre>' + stackTrace.innerHTML + '</pre>' + '</div>';
-  return overlay;
-}
-
-function getParents(bundle, id) {
-  var modules = bundle.modules;
-
-  if (!modules) {
-    return [];
-  }
-
-  var parents = [];
-  var k, d, dep;
-
-  for (k in modules) {
-    for (d in modules[k][1]) {
-      dep = modules[k][1][d];
-
-      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
-        parents.push(k);
-      }
-    }
-  }
-
-  if (bundle.parent) {
-    parents = parents.concat(getParents(bundle.parent, id));
-  }
-
-  return parents;
-}
-
-function hmrApply(bundle, asset) {
-  var modules = bundle.modules;
-
-  if (!modules) {
-    return;
-  }
-
-  if (modules[asset.id] || !bundle.parent) {
-    var fn = new Function('require', 'module', 'exports', asset.generated.js);
-    asset.isNew = !modules[asset.id];
-    modules[asset.id] = [fn, asset.deps];
-  } else if (bundle.parent) {
-    hmrApply(bundle.parent, asset);
-  }
-}
-
-function hmrAcceptCheck(bundle, id) {
-  var modules = bundle.modules;
-
-  if (!modules) {
-    return;
-  }
-
-  if (!modules[id] && bundle.parent) {
-    return hmrAcceptCheck(bundle.parent, id);
-  }
-
-  if (checkedAssets[id]) {
-    return;
-  }
-
-  checkedAssets[id] = true;
-  var cached = bundle.cache[id];
-  assetsToAccept.push([bundle, id]);
-
-  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
-    return true;
-  }
-
-  return getParents(global.parcelRequire, id).some(function (id) {
-    return hmrAcceptCheck(global.parcelRequire, id);
-  });
-}
-
-function hmrAcceptRun(bundle, id) {
-  var cached = bundle.cache[id];
-  bundle.hotData = {};
-
-  if (cached) {
-    cached.hot.data = bundle.hotData;
-  }
-
-  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
-    cached.hot._disposeCallbacks.forEach(function (cb) {
-      cb(bundle.hotData);
-    });
-  }
-
-  delete bundle.cache[id];
-  bundle(id);
-  cached = bundle.cache[id];
-
-  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
-    cached.hot._acceptCallbacks.forEach(function (cb) {
-      cb();
-    });
-
-    return true;
-  }
-}
-},{}]},{},["C:/Users/Xmasu/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js","main.js"], null)
-//# sourceMappingURL=/main.1f19ae8e.js.map
+_app.default.init('#app1');
+},{"./reset.css":"AQoi","./global.css":"AQoi","./app1":"US5u","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
+//# sourceMappingURL=main.ee1fe38b.js.map
