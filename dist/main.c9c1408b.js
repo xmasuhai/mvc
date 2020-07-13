@@ -11217,13 +11217,15 @@ var _jquery = _interopRequireDefault(require("jquery"));
 
 require("./app1.css");
 
+var _parseInt;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* 数据相关放到 m */
 var m = {
   // 初始化数据
   data: {
-    n: parseInt(localStorage.getItem('n'))
+    n: (_parseInt = parseInt(localStorage.getItem('n'))) !== null && _parseInt !== void 0 ? _parseInt : 100
   }
 };
 /* 视图相关放到 v */
@@ -11466,4 +11468,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _app.default.init('#app1');
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1":"US5u","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.ee1fe38b.js.map
+//# sourceMappingURL=main.c9c1408b.js.map

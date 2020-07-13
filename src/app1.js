@@ -4,7 +4,7 @@ import './app1.css'
 const m = {
   // 初始化数据
   data: {
-    n: parseInt(localStorage.getItem('n'))
+    n: parseInt(localStorage.getItem('n')) ?? 100
   }
 }
 /* 视图相关放到 v */
