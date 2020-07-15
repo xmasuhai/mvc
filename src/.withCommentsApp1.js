@@ -1,12 +1,13 @@
-import $ from 'jquery'
-import './app1.css'
+/*
+// import $ from 'jquery'
+// import './app1.css'
 
 // const eventBus = $(window)
 const eventBus = $({})
 // console.log(eventBus)
 // console.log(eventBus.on)
 // console.log(eventBus.trigger)
-/* 数据相关放到 m */
+/!* 数据相关放到 m *!/
 const m = {
   // 初始化数据
   data: {
@@ -22,14 +23,14 @@ const m = {
   },
   get() {}
 }
-/* 视图相关放到 v */
+/!* 视图相关放到 v *!/
 const v = {
   // 视图元素 容器元素
   el: null,
-  /*
+  /!*
   // 放入的容器元素
   container: null,
-  */
+  *!/
   // 初始化html
   html: `
     <div>
@@ -45,13 +46,13 @@ const v = {
       </div>
     </div>
   `,
-  /*
+  /!*
   update() {
     // 将数据渲染到页面
     // c.ui.number.text(m.data.n ?? 100) // $number.text(m.data.n  || 100)
     v.render()
   },
-  */
+  *!/
   // 接受外部参数（传入容器）视图初始化
   init(container) {
     // 用jQuery封装对象 container <- #app1
@@ -62,11 +63,11 @@ const v = {
   // 负责渲染页面
   render(n) {
     // 用jQuery方法见字符串变为HTML标签
-    /* console.log('v.html: ')
+    /!* console.log('v.html: ')
     console.log(v.html)
     console.log('m.data.n: ')
-    console.log(m.data.n) */
-    /*
+    console.log(m.data.n) *!/
+    /!*
     if(v.el === null) {
       // 没渲染过
       v.el = $(v.html.replace('{{number}}', m.data.n))
@@ -78,7 +79,7 @@ const v = {
       // 更新地址 注意每次刷新都是不同的引用
       v.el = newEl
     }
-    */
+    *!/
     // `v.el.children.length === 0` 代替 `v.el === null`判断视图元素是否为空
     if (v.el.children.length !== 0) {
       v.el.empty()
@@ -87,18 +88,18 @@ const v = {
       .prependTo(v.el)
   }
 }
-/* 其他相关放到 c */
-/*
+/!* 其他相关放到 c *!/
+/!*
 console.log("$('#add1')")
 debugger
 console.log($('#add1')) // null
-*/
+*!/
 const c = {
   init(container) {
     // 初始化渲染html
     v.init(container)
     v.render(m.data.n) // 1st view = render(data)
-    /*
+    /!*
     c.ui = {
         // 需要的元素
         button1: $('#add1'),
@@ -108,7 +109,7 @@ const c = {
         number: $('#number'),
         recovery: $('#recovery')
     }
-    */
+    *!/
     // c.bindEvents()
     c.autoBindEvents()
     // 监听触发标记`'m:updated'`
@@ -170,7 +171,7 @@ const c = {
       v.el.on(part1, part2, valueMethod)
     }
   }
-  /*
+  /!*
   ,
   bindEvents() {
     //事件委托
@@ -203,8 +204,8 @@ const c = {
       localStorage.setItem('n', m.data.n.toString())
     })
   }
-  */
+  *!/
 }
 
 // c.init()
-// export default c
+// export default c*/

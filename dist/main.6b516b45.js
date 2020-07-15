@@ -11339,7 +11339,7 @@ var m = {
   update: function update(data) {
     Object.assign(m.data, data);
     eventBus.trigger('m:updated');
-    localStorage.setItem(localKey, m.data.index);
+    localStorage.setItem(localKey, m.data.index.toString());
   }
 };
 var v = {
@@ -11368,13 +11368,13 @@ var c = {
     });
   },
   events: {
-    'click .tab-bar li': 'x'
+    'click .tab-bar li': 'focus'
   },
-  x: function x(e) {
+  focus: function focus(e) {
     // console.log(e.currentTarget.dataset.index)
-    var index = parseInt(e.currentTarget.dataset.index);
+    var dataIndex = parseInt(e.currentTarget.dataset.index);
     m.update({
-      index: index
+      index: dataIndex
     }); // console.log('x')
   },
   autoBindEvents: function autoBindEvents() {
@@ -11387,70 +11387,6 @@ var c = {
     }
   }
 };
-/*
-const html = `
-  <section id="app2" class="app2">
-    <ol class="tab-bar">
-      <li><span>111111</span></li>
-      <li><span>222222</span></li>
-    </ol>
-    <ol class="tab-content">
-      <li>内容1</li>
-      <li>内容2</li>
-    </ol>
-  </section>
-`
-const $element = $(html)
-  .appendTo($('body>.page'))
-const $tabBar = $('#app2 .tab-bar')
-const $tabContent = $('#app2 .tab-content')
-
-// 事件委托
-$tabBar.on('click', 'li', (e) => {
-  // console.log(e.target) // 点击时可能获取到目标元素的子元素 改成用 e.currentTarget
-  // console.log(e.currentTarget) // DOM 元素难用 换成用jQuery元素 封装$li
-  const $li = $(e.currentTarget)
-  const index = $li.index()
-  // console.log(index)
-
-  //write localStorage tab status
-  localStorage.setItem(localKey, index)
-
-  /!*
-    // 逻辑与样式耦合的代码1
-    $tabContent.children()
-      .eq(index).css({ display: 'block' })
-      .siblings().css({
-        display: 'none'
-      })
-
-    // 逻辑与样式耦合的代码2
-    $tabContent.children()
-      .eq(index).show()
-      .siblings().hide()
-   *!/
-
-  // 行为与样式分离1 // 背景色切换
-  $li.addClass('selected')
-    .siblings()
-    .removeClass('selected')
-
-  // 行为与样式分离2 // 内容的显示与隐藏
-  $tabContent
-    .children()
-    .eq(index)
-    .addClass('active')
-    .siblings()
-    .removeClass('active')
-
-})
-
-// 帮你点击 代替在HTML标签中设置样式属性 'selected' 'active'
-// $tabBar.children().eq(0).trigger('click')
-$tabBar.children().eq(index).trigger('click')
-
-*/
-
 var _default = c;
 exports.default = _default;
 },{"./app2.css":"AQoi","jquery":"juYr"}],"y8lT":[function(require,module,exports) {
@@ -11513,13 +11449,9 @@ require("./reset.css");
 
 require("./global.css");
 
-var _app = _interopRequireDefault(require("./app1"));
+var _app = _interopRequireDefault(require("./app1.js"));
 
-var _app2 = _interopRequireDefault(require("./app2"));
-
-require("./app1.js");
-
-require("./app2.js");
+var _app2 = _interopRequireDefault(require("./app2.js"));
 
 require("./app3.js");
 
@@ -11527,8 +11459,10 @@ require("./app4.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// 导入 控制器 c
+// 传入初始化需要填入的节点
 _app.default.init('#app1');
 
 _app2.default.init('#app2');
-},{"./reset.css":"AQoi","./global.css":"AQoi","./app1":"US5u","./app2":"vZ5o","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.8cccce81.js.map
+},{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
+//# sourceMappingURL=main.6b516b45.js.map

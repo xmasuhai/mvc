@@ -1,13 +1,7 @@
-import $ from 'jquery'
-import './app2.css'
-const eventBus = $({})
-const m = {
-  data: {
-    index: localStorage.getItem(localKey) || 0
-  }
-}
-const v = {}
-const c = {}
+/*
+
+// import $ from 'jquery'
+// import './app2.css'
 
 const html = `
   <section id="app2" class="app2">
@@ -43,7 +37,7 @@ $tabBar.on('click', 'li', (e) => {
   //write localStorage tab status
   localStorage.setItem(localKey, index)
 
-  /*
+  /!*
     // 逻辑与样式耦合的代码1
     $tabContent.children()
       .eq(index).css({ display: 'block' })
@@ -55,7 +49,7 @@ $tabBar.on('click', 'li', (e) => {
     $tabContent.children()
       .eq(index).show()
       .siblings().hide()
-   */
+   *!/
 
   // 行为与样式分离1 // 背景色切换
   $li.addClass('selected')
@@ -76,3 +70,4 @@ $tabBar.on('click', 'li', (e) => {
 // $tabBar.children().eq(0).trigger('click')
 $tabBar.children().eq(index).trigger('click')
 
+*/
