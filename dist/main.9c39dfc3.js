@@ -11205,7 +11205,70 @@ if ( typeof noGlobal === "undefined" ) {
 return jQuery;
 } );
 
-},{"process":"zkvw"}],"US5u":[function(require,module,exports) {
+},{"process":"zkvw"}],"wYwp":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Model = /*#__PURE__*/function () {
+  // 属性传参 data
+  function Model(options) {
+    _classCallCheck(this, Model);
+
+    this.data = options.data; // 传参复制到对象实例中
+  } // 原型方法
+
+
+  _createClass(Model, [{
+    key: "create",
+    value: function create() {
+      var _console, _console$error;
+
+      // if(console && console.error) console.error('未实现 create')
+      // console && console.error && console.error('未实现 create')
+      // 可选链语法 `?.` 语法
+      (_console = console) === null || _console === void 0 ? void 0 : (_console$error = _console.error) === null || _console$error === void 0 ? void 0 : _console$error.call(_console, '未实现 create');
+    }
+  }, {
+    key: "delete",
+    value: function _delete() {
+      var _console2, _console2$error;
+
+      (_console2 = console) === null || _console2 === void 0 ? void 0 : (_console2$error = _console2.error) === null || _console2$error === void 0 ? void 0 : _console2$error.call(_console2, '未实现 delete');
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      var _console3, _console3$error;
+
+      (_console3 = console) === null || _console3 === void 0 ? void 0 : (_console3$error = _console3.error) === null || _console3$error === void 0 ? void 0 : _console3$error.call(_console3, '未实现 update');
+    }
+  }, {
+    key: "get",
+    value: function get() {
+      var _console4, _console4$error;
+
+      (_console4 = console) === null || _console4 === void 0 ? void 0 : (_console4$error = _console4.error) === null || _console4$error === void 0 ? void 0 : _console4$error.call(_console4, '未实现 get');
+    }
+  }]);
+
+  return Model;
+}(); // 使用时 实例化： // const m = new Model() //m.create() //m.delete()
+// 导出
+
+
+var _default = Model;
+exports.default = _default;
+},{}],"US5u":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11217,26 +11280,45 @@ var _jquery = _interopRequireDefault(require("jquery"));
 
 require("./app1.css");
 
+var _Model = _interopRequireDefault(require("./base/Model"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 获取 jQuery对象的 on 和 trigger 方法
 var eventBus = (0, _jquery.default)({});
 /* 数据相关放到 m */
 
-var m = {
+/*
+const m = {
   // 初始化数据
   data: {
     n: parseInt(localStorage.getItem('n')) || 100
   },
-  update: function update(data) {
+  update(data) {
     // 更新数据
-    Object.assign(m.data, data); // 标记数据更新
-
-    eventBus.trigger('m:updated');
-    localStorage.setItem('n', m.data.n.toString());
+    Object.assign(m.data, data)
+    // 标记数据更新
+    eventBus.trigger('m:updated')
+    localStorage.setItem('n', m.data.n.toString())
   }
+}
+*/
+
+var m = new _Model.default({
+  data: {
+    n: parseInt(localStorage.getItem('n')) || 100
+  }
+}); // 可以直接覆盖
+
+m.update = function (data) {
+  // 更新数据
+  Object.assign(m.data, data); // 标记数据更新
+
+  eventBus.trigger('m:updated');
+  localStorage.setItem('n', m.data.n.toString());
 };
 /* 视图相关放到 v */
+
 
 var v = {
   // 容器
@@ -11316,7 +11398,7 @@ var c = {
 };
 var _default = c;
 exports.default = _default;
-},{"jquery":"juYr","./app1.css":"AQoi"}],"vZ5o":[function(require,module,exports) {
+},{"jquery":"juYr","./app1.css":"AQoi","./base/Model":"wYwp"}],"vZ5o":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11372,9 +11454,9 @@ var c = {
   },
   focus: function focus(e) {
     // console.log(e.currentTarget.dataset.index)
-    var dataIndex = parseInt(e.currentTarget.dataset.index);
+    var tabIndex = parseInt(e.currentTarget.dataset.index);
     m.update({
-      index: dataIndex
+      index: tabIndex
     }); // console.log('x')
   },
   autoBindEvents: function autoBindEvents() {
@@ -11465,4 +11547,4 @@ _app.default.init('#app1');
 
 _app2.default.init('#app2');
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.6b516b45.js.map
+//# sourceMappingURL=main.9c39dfc3.js.map

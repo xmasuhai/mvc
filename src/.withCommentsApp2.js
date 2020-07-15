@@ -63,7 +63,6 @@ $tabBar.on('click', 'li', (e) => {
     .addClass('active')
     .siblings()
     .removeClass('active')
-
 })
 
 // 帮你点击 代替在HTML标签中设置样式属性 'selected' 'active'

@@ -52,8 +52,8 @@ const c = {
   },
   focus(e) {
     // console.log(e.currentTarget.dataset.index)
-    const dataIndex = parseInt(e.currentTarget.dataset.index)
-    m.update({index: dataIndex})
+    const tabIndex = parseInt(e.currentTarget.dataset.index)
+    m.update({index: tabIndex})
     // console.log('x')
   },
   autoBindEvents() {
