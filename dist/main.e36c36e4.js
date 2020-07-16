@@ -11222,9 +11222,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Model = /*#__PURE__*/function () {
   // 属性传参 data
   function Model(options) {
+    var _this = this;
+
     _classCallCheck(this, Model);
 
-    this.data = options.data; // 传参复制到对象实例中
+    // this.data = options.data
+    // this.update = options.update
+    // this.delete = options.delete
+    // this.get = options.get
+    // 事不过三 简化代码 遍历 // 传参复制到对象实例中
+    ['data', 'update', 'create', 'delete', 'get'].forEach(function (key) {
+      if (key in options) {
+        _this[key] = options[key];
+      }
+    });
   } // 原型方法
 
 
@@ -11288,37 +11299,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var eventBus = (0, _jquery.default)({});
 /* 数据相关放到 m */
 
-/*
-const m = {
-  // 初始化数据
-  data: {
-    n: parseInt(localStorage.getItem('n')) || 100
-  },
-  update(data) {
-    // 更新数据
-    Object.assign(m.data, data)
-    // 标记数据更新
-    eventBus.trigger('m:updated')
-    localStorage.setItem('n', m.data.n.toString())
-  }
-}
-*/
-
 var m = new _Model.default({
   data: {
     n: parseInt(localStorage.getItem('n')) || 100
+  },
+  update: function update(data) {
+    // 更新数据
+    Object.assign(m.data, data); // 标记数据更新
+
+    eventBus.trigger('m:updated');
+    localStorage.setItem('n', m.data.n.toString());
   }
-}); // 可以直接覆盖
+}); // console.dir(m)
+// m.create()
 
-m.update = function (data) {
-  // 更新数据
-  Object.assign(m.data, data); // 标记数据更新
-
-  eventBus.trigger('m:updated');
-  localStorage.setItem('n', m.data.n.toString());
-};
 /* 视图相关放到 v */
-
 
 var v = {
   // 容器
@@ -11410,11 +11405,13 @@ require("./app2.css");
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
+var _Model = _interopRequireDefault(require("./base/Model"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var localKey = 'app2.index';
 var eventBus = (0, _jquery.default)({});
-var m = {
+var m = new _Model.default({
   data: {
     index: parseInt(localStorage.getItem(localKey)) || 0
   },
@@ -11423,7 +11420,7 @@ var m = {
     eventBus.trigger('m:updated');
     localStorage.setItem(localKey, m.data.index.toString());
   }
-};
+});
 var v = {
   el: null,
   html: function html(index) {
@@ -11471,7 +11468,7 @@ var c = {
 };
 var _default = c;
 exports.default = _default;
-},{"./app2.css":"AQoi","jquery":"juYr"}],"y8lT":[function(require,module,exports) {
+},{"./app2.css":"AQoi","jquery":"juYr","./base/Model":"wYwp"}],"y8lT":[function(require,module,exports) {
 "use strict";
 
 var _jquery = _interopRequireDefault(require("jquery"));
@@ -11547,4 +11544,4 @@ _app.default.init('#app1');
 
 _app2.default.init('#app2');
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.9c39dfc3.js.map
+//# sourceMappingURL=main.e36c36e4.js.map

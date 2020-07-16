@@ -4,9 +4,7 @@ import Model from './base/Model'
 // 获取 jQuery对象的 on 和 trigger 方法
 const eventBus = $({})
 /* 数据相关放到 m */
-/*
-const m = {
-  // 初始化数据
+const m = new Model({
   data: {
     n: parseInt(localStorage.getItem('n')) || 100
   },
@@ -17,20 +15,9 @@ const m = {
     eventBus.trigger('m:updated')
     localStorage.setItem('n', m.data.n.toString())
   }
-}
-*/
-const m = new Model({
-  data: {
-    n: parseInt(localStorage.getItem('n')) || 100
-  }})
-// 可以直接覆盖
-m.update = (data) => {
-  // 更新数据
-  Object.assign(m.data, data)
-  // 标记数据更新
-  eventBus.trigger('m:updated')
-  localStorage.setItem('n', m.data.n.toString())
-}
+})
+// console.dir(m)
+// m.create()
 /* 视图相关放到 v */
 const v = {
   // 容器

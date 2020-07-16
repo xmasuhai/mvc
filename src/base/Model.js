@@ -1,7 +1,16 @@
 class Model {
   // 属性传参 data
   constructor(options) {
-    this.data = options.data // 传参复制到对象实例中
+    // this.data = options.data
+    // this.update = options.update
+    // this.delete = options.delete
+    // this.get = options.get
+    // 事不过三 简化代码 遍历 // 传参复制到对象实例中
+    ['data', 'update', 'create', 'delete', 'get'].forEach((key) => {
+      if(key in options) {
+        this[key] = options[key]
+      }
+    })
   }
   // 原型方法
   create() {
