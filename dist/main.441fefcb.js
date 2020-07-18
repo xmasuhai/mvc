@@ -11279,35 +11279,7 @@ var Model = /*#__PURE__*/function () {
 
 var _default = Model;
 exports.default = _default;
-},{}],"SFHW":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _jquery = _interopRequireDefault(require("jquery"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var View = function View(_ref) {
-  var el = _ref.el,
-      html = _ref.html,
-      render = _ref.render;
-
-  _classCallCheck(this, View);
-
-  this.el = (0, _jquery.default)(el);
-  this.html = html;
-  this.render = render;
-};
-
-var _default = View;
-exports.default = _default;
-},{"jquery":"juYr"}],"US5u":[function(require,module,exports) {
+},{}],"US5u":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11320,8 +11292,6 @@ var _jquery = _interopRequireDefault(require("jquery"));
 require("./app1.css");
 
 var _Model = _interopRequireDefault(require("./base/Model.js"));
-
-var _View = _interopRequireDefault(require("./base/View"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11340,40 +11310,31 @@ var m = new _Model.default({
     eventBus.trigger('m:updated');
     localStorage.setItem('n', m.data.n.toString());
   }
-}); // console.dir(m)
-// m.create()
+});
+/* 合并 vc */
 
-/* 视图相关放到 v */
-
-/* 其他相关放到 c */
-
-var c = {
-  v: null,
-  initV: function initV() {
-    c.v = new _View.default({
-      // 容器
-      el: c.container,
-      // 视图
-      html: "\n        <div>\n          <div class=\"output\">\n            <span id=\"number\">{{number}}</span>\n          </div>\n          <div class=\"actions\">\n            <button id=\"add1\">+1</button>\n            <button id=\"minus1\">-1</button>\n            <button id=\"mul2\">\xD72</button>\n            <button id=\"divide2\">\xF72</button>\n            <button id=\"recovery\">\u6062\u590D</button>\n          </div>\n        </div>\n      ",
-      // 渲染
-      render: function render(n) {
-        if (c.v.el.children.length !== 0) {
-          c.v.el.empty();
-        }
-
-        (0, _jquery.default)(c.v.html.replace('{{number}}', n)).prependTo(c.v.el);
-      }
-    });
-    c.v.render(m.data.n); // 1st view = render(data)
-  },
+var view = {
+  // 容器
+  el: null,
+  // 视图
+  html: "\n    <div>\n      <div class=\"output\">\n        <span id=\"number\">{{number}}</span>\n      </div>\n      <div class=\"actions\">\n        <button id=\"add1\">+1</button>\n        <button id=\"minus1\">-1</button>\n        <button id=\"mul2\">\xD72</button>\n        <button id=\"divide2\">\xF72</button>\n        <button id=\"recovery\">\u6062\u590D</button>\n      </div>\n    </div>\n  ",
   init: function init(container) {
-    c.container = container;
-    c.initV();
-    c.autoBindEvents(); // 监听触发标记`'m:updated'` 统一渲染
+    view.el = (0, _jquery.default)(container);
+    view.render(m.data.n); // 1st view = render(data)
+
+    view.autoBindEvents(); // 监听触发标记`'m:updated'` 统一渲染
 
     eventBus.on('m:updated', function () {
-      c.v.render(m.data.n);
+      view.render(m.data.n);
     });
+  },
+  // 渲染
+  render: function render(n) {
+    if (view.el.children.length !== 0) {
+      view.el.empty();
+    }
+
+    (0, _jquery.default)(view.html.replace('{{number}}', n)).prependTo(view.el);
   },
   events: {
     'click #add1': 'add',
@@ -11409,18 +11370,18 @@ var c = {
   },
   // 表驱动编程-自动绑定事件
   autoBindEvents: function autoBindEvents() {
-    for (var key in c.events) {
+    for (var key in view.events) {
       var spaceIndex = key.indexOf(' ');
       var part1 = key.slice(0, spaceIndex);
       var part2 = key.slice(spaceIndex + 1);
-      var valueMethod = c[c.events[key]];
-      c.v.el.on(part1, part2, valueMethod);
+      var valueMethod = view[view.events[key]];
+      view.el.on(part1, part2, valueMethod);
     }
   }
 };
-var _default = c;
+var _default = view;
 exports.default = _default;
-},{"jquery":"juYr","./app1.css":"AQoi","./base/Model.js":"wYwp","./base/View":"SFHW"}],"vZ5o":[function(require,module,exports) {
+},{"jquery":"juYr","./app1.css":"AQoi","./base/Model.js":"wYwp"}],"vZ5o":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11448,29 +11409,24 @@ var m = new _Model.default({
     localStorage.setItem(localKey, m.data.index.toString());
   }
 });
-var v = {
+var view = {
   el: null,
   html: function html(index) {
-    return "\n  <div>\n    <ol class=\"tab-bar\">\n      <li class=\"".concat(index === 0 ? 'selected' : '', "\" data-index=\"0\"><span>111111</span></li>\n      <li class=\"").concat(index === 1 ? 'selected' : '', "\" data-index=\"1\"><span>222222</span></li>\n    </ol>\n    <ol class=\"tab-content\">\n      <li class=\"").concat(index === 0 ? 'active' : '', "\">\u5185\u5BB91</li>\n      <li class=\"").concat(index === 1 ? 'active' : '', "\">\u5185\u5BB92</li>\n    </ol>\n  </div>\n  ");
-  },
-  init: function init(el) {
-    v.el = (0, _jquery.default)(el);
+    return "\n      <div>\n        <ol class=\"tab-bar\">\n          <li class=\"".concat(index === 0 ? 'selected' : '', "\" data-index=\"0\"><span>111111</span></li>\n          <li class=\"").concat(index === 1 ? 'selected' : '', "\" data-index=\"1\"><span>222222</span></li>\n        </ol>\n        <ol class=\"tab-content\">\n          <li class=\"").concat(index === 0 ? 'active' : '', "\">\u5185\u5BB91</li>\n          <li class=\"").concat(index === 1 ? 'active' : '', "\">\u5185\u5BB92</li>\n        </ol>\n      </div>\n    ");
   },
   render: function render(index) {
-    if (v.el.children.length !== 0) {
-      v.el.empty();
+    if (view.el.children.length !== 0) {
+      view.el.empty();
     }
 
-    (0, _jquery.default)(v.html(index)).appendTo(v.el);
-  }
-};
-var c = {
+    (0, _jquery.default)(view.html(index)).appendTo(view.el);
+  },
   init: function init(container) {
-    v.init(container);
-    v.render(m.data.index);
-    c.autoBindEvents();
+    view.el = (0, _jquery.default)(container);
+    view.render(m.data.index);
+    view.autoBindEvents();
     eventBus.on('m:updated', function () {
-      v.render(m.data.index);
+      view.render(m.data.index);
     });
   },
   events: {
@@ -11484,16 +11440,16 @@ var c = {
     }); // console.log('x')
   },
   autoBindEvents: function autoBindEvents() {
-    for (var key in c.events) {
+    for (var key in view.events) {
       var spaceIndex = key.indexOf(' ');
       var part1 = key.slice(0, spaceIndex);
       var part2 = key.slice(spaceIndex + 1);
-      var valueMethod = c[c.events[key]];
-      v.el.on(part1, part2, valueMethod);
+      var valueMethod = view[view.events[key]];
+      view.el.on(part1, part2, valueMethod);
     }
   }
 };
-var _default = c;
+var _default = view;
 exports.default = _default;
 },{"./app2.css":"AQoi","jquery":"juYr","./base/Model":"wYwp"}],"y8lT":[function(require,module,exports) {
 "use strict";
@@ -11571,4 +11527,4 @@ _app.default.init('#app1');
 
 _app2.default.init('#app2');
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.3d2a6e17.js.map
+//# sourceMappingURL=main.441fefcb.js.map

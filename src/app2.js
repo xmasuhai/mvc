@@ -14,40 +14,34 @@ const m = new Model({
     localStorage.setItem(localKey, m.data.index.toString())
   }
 })
-
-const v = {
+const view = {
   el: null,
   html: (index) => {
     return `
-  <div>
-    <ol class="tab-bar">
-      <li class="${index === 0? 'selected' : ''}" data-index="0"><span>111111</span></li>
-      <li class="${index === 1? 'selected' : ''}" data-index="1"><span>222222</span></li>
-    </ol>
-    <ol class="tab-content">
-      <li class="${index === 0 ? 'active' : '' }">内容1</li>
-      <li class="${index === 1 ? 'active' : '' }">内容2</li>
-    </ol>
-  </div>
-  `
-  },
-  init(el) {
-    v.el = $(el)
+      <div>
+        <ol class="tab-bar">
+          <li class="${index === 0? 'selected' : ''}" data-index="0"><span>111111</span></li>
+          <li class="${index === 1? 'selected' : ''}" data-index="1"><span>222222</span></li>
+        </ol>
+        <ol class="tab-content">
+          <li class="${index === 0 ? 'active' : '' }">内容1</li>
+          <li class="${index === 1 ? 'active' : '' }">内容2</li>
+        </ol>
+      </div>
+    `
   },
   render(index) {
-    if (v.el.children.length !== 0) {
-      v.el.empty()
+    if (view.el.children.length !== 0) {
+      view.el.empty()
     }
-    $(v.html(index)).appendTo(v.el)
-  }
-}
-const c = {
+    $(view.html(index)).appendTo(view.el)
+  },
   init(container) {
-    v.init(container)
-    v.render(m.data.index)
-    c.autoBindEvents()
+    view.el = $(container)
+    view.render(m.data.index)
+    view.autoBindEvents()
     eventBus.on('m:updated', () => {
-      v.render(m.data.index)
+      view.render(m.data.index)
     })
   },
   events: {
@@ -60,13 +54,13 @@ const c = {
     // console.log('x')
   },
   autoBindEvents() {
-    for(let key in c.events) {
+    for(let key in view.events) {
       const spaceIndex = key.indexOf(' ')
       const part1 = key.slice(0, spaceIndex)
       const part2 = key.slice(spaceIndex + 1)
-      const valueMethod = c[c.events[key]]
-      v.el.on(part1, part2, valueMethod)
+      const valueMethod = view[view.events[key]]
+      view.el.on(part1, part2, valueMethod)
     }
   }
 }
-export default c
+export default view
