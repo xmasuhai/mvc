@@ -11279,7 +11279,35 @@ var Model = /*#__PURE__*/function () {
 
 var _default = Model;
 exports.default = _default;
-},{}],"US5u":[function(require,module,exports) {
+},{}],"SFHW":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _jquery = _interopRequireDefault(require("jquery"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var View = function View(_ref) {
+  var el = _ref.el,
+      html = _ref.html,
+      render = _ref.render;
+
+  _classCallCheck(this, View);
+
+  this.el = (0, _jquery.default)(el);
+  this.html = html;
+  this.render = render;
+};
+
+var _default = View;
+exports.default = _default;
+},{"jquery":"juYr"}],"US5u":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11291,7 +11319,9 @@ var _jquery = _interopRequireDefault(require("jquery"));
 
 require("./app1.css");
 
-var _Model = _interopRequireDefault(require("./base/Model"));
+var _Model = _interopRequireDefault(require("./base/Model.js"));
+
+var _View = _interopRequireDefault(require("./base/View"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11315,37 +11345,34 @@ var m = new _Model.default({
 
 /* 视图相关放到 v */
 
-var v = {
-  // 容器
-  el: null,
-  // 视图
-  html: "\n    <div>\n      <div class=\"output\">\n        <span id=\"number\">{{number}}</span>\n      </div>\n      <div class=\"actions\">\n        <button id=\"add1\">+1</button>\n        <button id=\"minus1\">-1</button>\n        <button id=\"mul2\">\xD72</button>\n        <button id=\"divide2\">\xF72</button>\n        <button id=\"recovery\">\u6062\u590D</button>\n      </div>\n    </div>\n  ",
-  // 接受外部参数（传入容器）视图初始化
-  init: function init(container) {
-    // 用jQuery封装容器 container <- #app1节点
-    v.el = (0, _jquery.default)(container);
-  },
-  // 渲染
-  render: function render(n) {
-    if (v.el.children.length !== 0) {
-      v.el.empty();
-    }
-
-    (0, _jquery.default)(v.html.replace('{{number}}', n)).prependTo(v.el);
-  }
-};
 /* 其他相关放到 c */
 
 var c = {
-  init: function init(container) {
-    // 初始化渲染html
-    v.init(container);
-    v.render(m.data.n); // 1st view = render(data)
+  v: null,
+  initV: function initV() {
+    c.v = new _View.default({
+      // 容器
+      el: c.container,
+      // 视图
+      html: "\n        <div>\n          <div class=\"output\">\n            <span id=\"number\">{{number}}</span>\n          </div>\n          <div class=\"actions\">\n            <button id=\"add1\">+1</button>\n            <button id=\"minus1\">-1</button>\n            <button id=\"mul2\">\xD72</button>\n            <button id=\"divide2\">\xF72</button>\n            <button id=\"recovery\">\u6062\u590D</button>\n          </div>\n        </div>\n      ",
+      // 渲染
+      render: function render(n) {
+        if (c.v.el.children.length !== 0) {
+          c.v.el.empty();
+        }
 
+        (0, _jquery.default)(c.v.html.replace('{{number}}', n)).prependTo(c.v.el);
+      }
+    });
+    c.v.render(m.data.n); // 1st view = render(data)
+  },
+  init: function init(container) {
+    c.container = container;
+    c.initV();
     c.autoBindEvents(); // 监听触发标记`'m:updated'` 统一渲染
 
     eventBus.on('m:updated', function () {
-      v.render(m.data.n);
+      c.v.render(m.data.n);
     });
   },
   events: {
@@ -11387,13 +11414,13 @@ var c = {
       var part1 = key.slice(0, spaceIndex);
       var part2 = key.slice(spaceIndex + 1);
       var valueMethod = c[c.events[key]];
-      v.el.on(part1, part2, valueMethod);
+      c.v.el.on(part1, part2, valueMethod);
     }
   }
 };
 var _default = c;
 exports.default = _default;
-},{"jquery":"juYr","./app1.css":"AQoi","./base/Model":"wYwp"}],"vZ5o":[function(require,module,exports) {
+},{"jquery":"juYr","./app1.css":"AQoi","./base/Model.js":"wYwp","./base/View":"SFHW"}],"vZ5o":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11426,8 +11453,8 @@ var v = {
   html: function html(index) {
     return "\n  <div>\n    <ol class=\"tab-bar\">\n      <li class=\"".concat(index === 0 ? 'selected' : '', "\" data-index=\"0\"><span>111111</span></li>\n      <li class=\"").concat(index === 1 ? 'selected' : '', "\" data-index=\"1\"><span>222222</span></li>\n    </ol>\n    <ol class=\"tab-content\">\n      <li class=\"").concat(index === 0 ? 'active' : '', "\">\u5185\u5BB91</li>\n      <li class=\"").concat(index === 1 ? 'active' : '', "\">\u5185\u5BB92</li>\n    </ol>\n  </div>\n  ");
   },
-  init: function init(container) {
-    v.el = (0, _jquery.default)(container);
+  init: function init(el) {
+    v.el = (0, _jquery.default)(el);
   },
   render: function render(index) {
     if (v.el.children.length !== 0) {
@@ -11544,4 +11571,4 @@ _app.default.init('#app1');
 
 _app2.default.init('#app2');
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.e36c36e4.js.map
+//# sourceMappingURL=main.3d2a6e17.js.map

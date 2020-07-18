@@ -31,8 +31,8 @@ const v = {
   </div>
   `
   },
-  init(container) {
-    v.el = $(container)
+  init(el) {
+    v.el = $(el)
   },
   render(index) {
     if (v.el.children.length !== 0) {

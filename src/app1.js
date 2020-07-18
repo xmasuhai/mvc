@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import './app1.css'
-import Model from './base/Model'
+import Model from './base/Model.js'
+import View from './base/View'
 // 获取 jQuery对象的 on 和 trigger 方法
 const eventBus = $({})
 /* 数据相关放到 m */
@@ -19,48 +20,46 @@ const m = new Model({
 // console.dir(m)
 // m.create()
 /* 视图相关放到 v */
-const v = {
-  // 容器
-  el: null,
-  // 视图
-  html: `
-    <div>
-      <div class="output">
-        <span id="number">{{number}}</span>
-      </div>
-      <div class="actions">
-        <button id="add1">+1</button>
-        <button id="minus1">-1</button>
-        <button id="mul2">×2</button>
-        <button id="divide2">÷2</button>
-        <button id="recovery">恢复</button>
-      </div>
-    </div>
-  `,
-  // 接受外部参数（传入容器）视图初始化
-  init(container) {
-    // 用jQuery封装容器 container <- #app1节点
-    v.el = $(container)
-  },
-  // 渲染
-  render(n) {
-    if (v.el.children.length !== 0) {
-      v.el.empty()
-    }
-    $(v.html.replace('{{number}}', n))
-      .prependTo(v.el)
-  }
-}
 /* 其他相关放到 c */
 const c = {
+  v: null,
+  initV() {
+    c.v = new View({
+      // 容器
+      el: c.container,
+      // 视图
+      html: `
+        <div>
+          <div class="output">
+            <span id="number">{{number}}</span>
+          </div>
+          <div class="actions">
+            <button id="add1">+1</button>
+            <button id="minus1">-1</button>
+            <button id="mul2">×2</button>
+            <button id="divide2">÷2</button>
+            <button id="recovery">恢复</button>
+          </div>
+        </div>
+      `,
+      // 渲染
+      render(n) {
+        if (c.v.el.children.length !== 0) {
+          c.v.el.empty()
+        }
+        $(c.v.html.replace('{{number}}', n))
+          .prependTo(c.v.el)
+      }
+    })
+    c.v.render(m.data.n) // 1st view = render(data)
+  },
   init(container) {
-    // 初始化渲染html
-    v.init(container)
-    v.render(m.data.n) // 1st view = render(data)
+    c.container = container
+    c.initV()
     c.autoBindEvents()
     // 监听触发标记`'m:updated'` 统一渲染
     eventBus.on('m:updated', () => {
-      v.render(m.data.n)
+      c.v.render(m.data.n)
     })
   },
   events: {
@@ -92,7 +91,7 @@ const c = {
       const part1 = key.slice(0, spaceIndex)
       const part2 = key.slice(spaceIndex + 1)
       const valueMethod = c[c.events[key]]
-      v.el.on(part1, part2, valueMethod)
+      c.v.el.on(part1, part2, valueMethod)
     }
   }
 }
