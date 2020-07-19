@@ -9,5 +9,5 @@ import './app2.js'
 import './app3.js'
 import './app4.js'
 // 传入初始化需要填入的节点
-x.init('#app1')
-y.init('#app2')
+x('#app1')
+y('#app2')

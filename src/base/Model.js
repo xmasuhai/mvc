@@ -1,12 +1,15 @@
-class Model {
+import EventBus from './EventBus'
+class Model extends EventBus {
   // 属性传参 data
   constructor(options) {
+    super()
     // this.data = options.data
     // this.update = options.update
     // this.delete = options.delete
     // this.get = options.get
     // 事不过三 简化代码 遍历 // 传参复制到对象实例中
-    ['data', 'update', 'create', 'delete', 'get'].forEach((key) => {
+    const keys = ['data', 'update', 'create', 'delete', 'get']
+    keys.forEach((key) => {
       if(key in options) {
         this[key] = options[key]
       }
