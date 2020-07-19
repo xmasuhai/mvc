@@ -28,8 +28,8 @@ const init = (el) => {
                 @click="index = 1"><span>222222</span></li>
           </ol>
           <ol class="tab-content">
-            <li class="index === 0? 'active': ''">内容1</li>
-            <li class="index === 1? 'active': ''">内容2</li>
+            <li :class="index === 0? 'active': ''">内容1</li>
+            <li :class="index === 1? 'active': ''">内容2</li>
           </ol>
       </section>
     `,

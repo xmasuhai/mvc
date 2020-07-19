@@ -222,7 +222,7 @@ var init = function init(el) {
         set(this.index);
       }
     },
-    template: "\n      <section id=\"app2\" class=\"app2\">\n          <ol class=\"tab-bar\">\n            <li :class=\"index === 0 ? 'selected':''\"\n                @click=\"index = 0\"><span>111111</span></li>\n            <li :class=\"index === 1 ? 'selected':''\"\n                @click=\"index = 1\"><span>222222</span></li>\n          </ol>\n          <ol class=\"tab-content\">\n            <li class=\"index === 0? 'active': ''\">\u5185\u5BB91</li>\n            <li class=\"index === 1? 'active': ''\">\u5185\u5BB92</li>\n          </ol>\n      </section>\n    "
+    template: "\n      <section id=\"app2\" class=\"app2\">\n          <ol class=\"tab-bar\">\n            <li :class=\"index === 0 ? 'selected':''\"\n                @click=\"index = 0\"><span>111111</span></li>\n            <li :class=\"index === 1 ? 'selected':''\"\n                @click=\"index = 1\"><span>222222</span></li>\n          </ol>\n          <ol class=\"tab-content\">\n            <li :class=\"index === 0? 'active': ''\">\u5185\u5BB91</li>\n            <li :class=\"index === 1? 'active': ''\">\u5185\u5BB92</li>\n          </ol>\n      </section>\n    "
   });
 }; // 导出初始化方法init(el) 在main.js 中获取el <- #app2: y('#app2')
 
@@ -11390,4 +11390,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 (0, _app.default)('#app1');
 (0, _app2.default)('#app2');
 },{"./reset.css":"AQoi","./global.css":"AQoi","./app1.js":"US5u","./app2.js":"vZ5o","./app3.js":"y8lT","./app4.js":"eWpN"}]},{},["epB2"], null)
-//# sourceMappingURL=main.fc0703b5.js.map
+//# sourceMappingURL=main.86b0a9dc.js.map
