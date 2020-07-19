@@ -5,12 +5,16 @@
   "license": "MIT",
   "dependencies": {
     "jquery": "^3.5.1",
-    "sass": "^1.26.9"
+    "sass": "^1.26.9",
+    "vue": "^2.6.11"
   },
   "scripts": {
     "build": "rm -rf dist && parcel build src/index.html --no-minify --public-url ./"
   },
   "devDependencies": {
     "cssnano": "^4.1.10"
+  },
+  "alias": {
+    "vue" : "./node_modules/vue/dist/vue.common.js"
   }
 }

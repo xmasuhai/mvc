@@ -1,4 +1,6 @@
+/*
 import $ from 'jquery'
+// import Model from './Model'
 class EventBus {
   // 偷梁换柱地使用jQuery封装的EventBus
   constructor() {
@@ -26,3 +28,4 @@ export default EventBus
 // e.on()
 // e.trigger()
 // e.off()
+*/
